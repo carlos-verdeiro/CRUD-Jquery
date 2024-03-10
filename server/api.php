@@ -31,6 +31,20 @@ explode: transforma em array com "/" de divisores;
             echo json_encode($usuarios);
             break;
 
+        case 'excluir':
+            $id = $requisicao[1];
+            $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = :id");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $resultado = $stmt->fetchAll();
+
+            if ($resultado) {
+                echo json_encode(array('mensagem' => 'Usuário excluído com sucesso'));
+            } else {
+                echo json_encode(array('mensagem' => 'Erro ao excluir o usuário'));
+            }
+            break;
+
         default:
             echo json_encode(['error' => true, 'errorMessage' => 'Usuario nao encontrado']);
             break;
