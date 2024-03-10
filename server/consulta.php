@@ -4,8 +4,6 @@ try {
 
     include_once 'conexao.php';
 
-    $metodo = $_SERVER['REQUEST_METHOD']; //Pega o método de requisição(GET,POST,...) através da super global $_SERVER
-
     $requisicao = explode('/', trim($_SERVER['PATH_INFO'], '/'));
     /*
 trim: remove caracteres de início e fim, nesse caso "/";
@@ -34,7 +32,7 @@ explode: transforma em array com "/" de divisores;
             break;
 
         default:
-            echo json_encode(['error' => '1', 'errorMessage' => 'Usuario nao encontrado']);
+            echo json_encode(['error' => true, 'errorMessage' => 'Usuario nao encontrado']);
             break;
     }
 } catch (PDOException $e) { //caso aconteça erro
