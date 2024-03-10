@@ -4,32 +4,22 @@ $(document).ready(function () {
 
     const tbody = $('#tbodyRegistros');
 
-    function criaTabela(dado) {
+    function criaTabela(data) {
         $(tbody).empty();
 
-        if (x.length > 0) {
-            let dados = [];
+        if (data.length > 0) {
 
-            $.each(x, (key, value) => {
-
-                let dadoRow = {
-                    id: value.id,
-                    nome: value.nome,
-                    email: value.email,
-                    idade: value.idade
-                };
-                dados.push(dadoRow);
+            $.each(data, (key, value) => {
 
 
                 let row = $('<tr class="registro">').appendTo(tbody);
-                $('<th scope="row">').text(dadoRow.id).appendTo(row);
-                $('<td>').text(dadoRow.nome).appendTo(row);
-                $('<td>').text(dadoRow.email).appendTo(row);
-                $('<td>').text(dadoRow.idade).appendTo(row);
-                $('<td class="funcoes">').append('<i type="button" class="edicao bi bi-pencil-fill btn btn-outline-info d-none w-25 p-0" value="' + dadoRow.id + '"></i>   <i type="button" class="exclusao bi bi-trash-fill btn btn-outline-danger d-none w-25 p-0" value="' + dadoRow.id + '"></i>').appendTo(row);
+                $('<th scope="row">').text(value.id).appendTo(row);
+                $('<td>').text(value.nome).appendTo(row);
+                $('<td>').text(value.email).appendTo(row);
+                $('<td>').text(value.idade).appendTo(row);
+                $('<td class="funcoes">').append('<i type="button" class="edicao bi bi-pencil-fill btn btn-outline-info d-none w-25 p-0" value="' + value.id + '"></i>   <i type="button" class="exclusao bi bi-trash-fill btn btn-outline-danger d-none w-25 p-0" value="' + value.id + '"></i>').appendTo(row);
 
             });
-            console.log(dados);
 
         } else {
 
