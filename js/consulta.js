@@ -9,9 +9,9 @@ $(document).ready(() => {//quando carrega página
 
                 let row = $('<tr class="registro">').appendTo(tbody);
                 $('<th scope="row">').text(value.id).appendTo(row);
-                $('<td>').text(value.nome).appendTo(row);
-                $('<td>').text(value.email).appendTo(row);
-                $('<td>').text(value.idade).appendTo(row);
+                $('<td class="nome">').text(value.nome).appendTo(row).addClass('nome');
+                $('<td class="email">').text(value.email).appendTo(row).addClass('email');
+                $('<td class="idade">').text(value.idade).appendTo(row).addClass('idade');
                 $('<td class="funcoes">').append('<i type="button" class="edicao bi bi-pencil-fill btn btn-outline-info d-none w-25 p-0" value="' + value.id + '"></i>   <i type="button" class="exclusao bi bi-trash-fill btn btn-outline-danger d-none w-25 p-0" value="' + value.id + '"></i>').appendTo(row);
 
             });
