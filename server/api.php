@@ -5,12 +5,6 @@ try {
     include_once 'conexao.php';
 
     $requisicao = explode('/', trim($_SERVER['PATH_INFO'], '/'));
-    /*
-trim: remove caracteres de início e fim, nesse caso "/";
-explode: transforma em array com "/" de divisores;
-*/
-
-    header('Content-Type: application/json');
 
     switch ($requisicao[0]) {
         case 'usuarios':
@@ -36,21 +30,33 @@ explode: transforma em array com "/" de divisores;
             $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
-            $resultado = $stmt->fetchAll();
 
-            if ($resultado) {
+            if ($stmt->rowCount() > 0) {
+                echo json_encode(array('mensagem' => 'Usuário excluído com sucesso'));
+            } else {
+                echo json_encode(array('mensagem' => 'Erro ao excluir o usuário:'. $id));
+            }
+
+            break;
+
+        case 'editar':
+            $id = $requisicao[1];
+            $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = :id");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
                 echo json_encode(array('mensagem' => 'Usuário excluído com sucesso'));
             } else {
                 echo json_encode(array('mensagem' => 'Erro ao excluir o usuário'));
             }
+
             break;
 
         default:
             echo json_encode(['error' => true, 'errorMessage' => 'Usuario nao encontrado']);
             break;
     }
-} catch (PDOException $e) { //caso aconteça erro
-
-    echo "Error: " . $e->getMessage(); //exibe erro
-
+} catch (PDOException $e) {
+    echo json_encode(['error' => true, 'errorMessage' => 'Erro no servidor: ' . $e->getMessage()]);
 }

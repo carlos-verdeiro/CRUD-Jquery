@@ -1,20 +1,38 @@
 $(document).ready(() => {//quando carrega página
     const tbody = $('#tbodyRegistros');
-    function criaTabela(dado) {
+    function criaTabela(x) {
         $(tbody).empty();
-        if (dado.length > 0) {
-            $.each(dado, (key, value) => {
+        if (x.length > 0) {
+            let dados = [];
+
+            $.each(x, (key, value) => {
+
+
+                let dadoRow = {
+                    id: value.id,
+                    nome: value.nome,
+                    email: value.email,
+                    idade: value.idade
+                };
+                dados.push(dadoRow);
+
+
                 let row = $('<tr class="registro">').appendTo(tbody);
-                $('<th scope="row">').text(value.id).appendTo(row);
-                $('<td>').text(value.nome).appendTo(row);
-                $('<td>').text(value.email).appendTo(row);
-                $('<td>').text(value.idade).appendTo(row);
-                $('<td class="funcoes">').append('<i type="button" class="bi bi-pencil-fill btn btn-outline-info d-none w-25 px-0" value="'+value.id+'"></i>   <i type="button" class="bi bi-trash-fill btn btn-outline-danger d-none w-25 px-0" value="'+value.id+'"></i>').appendTo(row);
+                $('<th scope="row">').text(dadoRow.id).appendTo(row);
+                $('<td>').text(dadoRow.nome).appendTo(row);
+                $('<td>').text(dadoRow.email).appendTo(row);
+                $('<td>').text(dadoRow.idade).appendTo(row);
+                $('<td class="funcoes">').append('<i type="button" class="edicao bi bi-pencil-fill btn btn-outline-info d-none w-25 p-0" value="' + dadoRow.id + '"></i>   <i type="button" class="exclusao bi bi-trash-fill btn btn-outline-danger d-none w-25 p-0" value="' + dadoRow.id + '"></i>').appendTo(row);
+
             });
+            console.log(dados);
+
         } else {
+
             $('<tr>').append($('<td colspan="5">').text('Nenhum usuário encontrado')).appendTo(tbody);
         }
     }
+
     $.ajax({
         url: "server/api.php/usuarios",
         dataType: "json",
@@ -58,11 +76,11 @@ $(document).ready(() => {//quando carrega página
 
     });
 
-    $(document).on('mouseenter', '.registro', function() {
+    $(document).on('mouseenter', '.registro', function () {
         $(this).find('.funcoes i').removeClass('d-none');
     });
 
-    $(document).on('mouseleave', '.registro', function() {
+    $(document).on('mouseleave', '.registro', function () {
         $(this).find('.funcoes i').addClass('d-none');
     });
 })

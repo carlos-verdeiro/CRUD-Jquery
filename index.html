@@ -46,7 +46,6 @@
             <button type="button" class="btn btn-outline-primary w-25 fs-5" data-bs-toggle="modal"
                 data-bs-target="#modalInsercao">Cadastrar</button>
         </container>
-
         <hr>
         <table class="table table-striped table-hover text-center" id="tabelaRegistros">
             <thead>
@@ -63,6 +62,14 @@
             </tbody>
         </table>
     </main>
+    <div class="toast align-items-center position-absolute bottom-0 end-0 m-5" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast">
+        <div class="d-flex">
+            <div class="toast-body" id="liveToastBody">
+                Mensagem
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
 </body>
 <!--MODAL cadastro-->
 <div class="modal fade" id="modalInsercao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -76,24 +83,27 @@
                 <form>
                     <div class="mb-3">
                         <label for="nomeForm" class="form-label">Nome:</label>
-                        <input type="text" class="form-control" id="nomeForm" placeholder="Digite o nome" minlength="3" maxlength="100" required>
+                        <input type="text" class="form-control" id="nomeForm" placeholder="Digite o nome" minlength="3"
+                            maxlength="100" required>
                     </div>
                     <div class="mb-3">
                         <label for="emailForm" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="emailForm" placeholder="Digite o email" minlength="1" maxlength="100" required>
+                        <input type="email" class="form-control" id="emailForm" placeholder="Digite o email"
+                            minlength="1" maxlength="100" required>
                     </div>
                     <div class="mb-3">
                         <label for="idadeForm" class="form-label">Idade:</label>
-                        <input type="number" class="form-control" id="idadeForm" placeholder="Digite a idade" min="1"  maxlength="11" required>
+                        <input type="number" class="form-control" id="idadeForm" placeholder="Digite a idade" min="1"
+                            maxlength="11" required>
                     </div>
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
                 <button type="reset" class="btn btn-warning">Limpar Campos</button>
                 <button type="submit" class="btn btn-success">Cadastrar</button>
             </div>
-        </form>
+            </form>
         </div>
     </div>
 </div>
@@ -101,5 +111,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 <script src="js/consulta.js"></script>
+<script src="js/funcoes.js"></script>
+
 
 </html>
