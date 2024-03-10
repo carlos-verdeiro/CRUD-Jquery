@@ -62,7 +62,7 @@
             </tbody>
         </table>
     </main>
-    <div class="toast align-items-center position-absolute bottom-0 end-0 m-5" role="alert" aria-live="assertive"
+    <div class="toast align-items-center position-fixed bottom-0 end-0 m-5" role="alert" aria-live="assertive"
         aria-atomic="true" id="liveToast">
         <div class="d-flex">
             <div class="toast-body" id="liveToastBody">
@@ -81,7 +81,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="formCadastro">
                     <div class="mb-3">
                         <label for="nomeForm" class="form-label">Nome:</label>
                         <input type="text" class="form-control" id="nomeForm" placeholder="Digite o nome" minlength="3"

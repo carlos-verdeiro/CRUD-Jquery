@@ -60,14 +60,37 @@ try {
                     echo json_encode(array('mensagem' => 'Erro ao editar o usuário'));
                 }
             } else {
-                echo json_encode(array('mensagem' => 'Erro ao editar o usuário'));
+                echo json_encode(array('mensagem' => 'Nenhum registro'));
+            }
+            break;
+
+        case 'cadastrar':
+            if ($_POST) {
+                $nome = $_POST['nome'];
+                $email = $_POST['email'];
+                $idade = $_POST['idade'];
+
+                $stmt = $conn->prepare("INSERT INTO usuarios (nome, email, idade) VALUES (:nome, :email, :idade)");
+                $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->bindParam(':idade', $idade, PDO::PARAM_INT);
+
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    echo json_encode(array('mensagem' => 'Usuário inserido com sucesso'));
+                } else {
+                    echo json_encode(array('mensagem' => 'Erro ao inserir o usuário'));
+                }
+            } else {
+                echo json_encode(array('mensagem' => 'Nenhum registro'));
             }
             break;
 
         default:
-            echo json_encode(['error' => true, 'errorMessage' => 'Usuario nao encontrado']);
+            echo json_encode(['error' => true, 'mensagem' => 'Usuario nao encontrado']);
             break;
     }
 } catch (PDOException $e) {
-    echo json_encode(['error' => true, 'errorMessage' => 'Erro no servidor: ' . $e->getMessage()]);
+    echo json_encode(['error' => true, 'mensagem' => 'Erro no servidor: ' . $e->getMessage()]);
 }

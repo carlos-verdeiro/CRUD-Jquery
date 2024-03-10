@@ -2,6 +2,7 @@ $(document).ready(function () {
     const toastLive = document.getElementById('liveToast');
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLive);
     const edicaoModal = new bootstrap.Modal($('#modalEdicao'));
+    const cadastroModal = new bootstrap.Modal($('#modalInsercao'));
     const tbody = $('#tbodyRegistros');
 
     function criaTabela(data) {
@@ -84,7 +85,7 @@ $(document).ready(function () {
         if (!emailRegex.test(emailNovo) === "" || emailNovo.length < 3) {
             invalidos = true;
         }
-        if (idadeNovo.trim() === ""|| idadeNovo < 1) {
+        if (idadeNovo.trim() === "" || idadeNovo < 1) {
             invalidos = true;
         }
 
@@ -111,7 +112,53 @@ $(document).ready(function () {
             $('#formEdicao').removeClass('was-validated');
             edicaoModal.hide();
         }
-        
+
+    });
+    //Cadastro
+    $(document).on('click', '#btnCadastrar', function (e) {
+        e.preventDefault();
+        let nome = $('#nomeForm').val();
+        let email = $('#emailForm').val();
+        let idade = $('#idadeForm').val();
+
+        //VALIDAÇÃO
+        let invalidos = false
+        $('#formCadastro').addClass('was-validated');
+        if (nome.trim() === "" || nome.length < 3) {
+            invalidos = true;
+        }
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email) === "" || email.length < 3) {
+            invalidos = true;
+        }
+        if (idade.trim() === "" || idade < 1) {
+            invalidos = true;
+        }
+
+        if (!invalidos) {
+            $.ajax({
+                type: "POST",
+                url: 'server/api.php/cadastrar',
+                data: {
+                    nome: nome,
+                    email: email,
+                    idade: idade
+                },
+                dataType: "json",
+                success: function (data) {
+                    $('#liveToastBody').text(data.mensagem);
+                    toastBootstrap.show();
+                    carregarUsuarios();
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                    alert("Error: " + error);
+                }
+            });
+            $('#formCadastro').removeClass('was-validated');
+            cadastroModal.hide();
+        }
+
     });
 
     function carregarUsuarios() {
