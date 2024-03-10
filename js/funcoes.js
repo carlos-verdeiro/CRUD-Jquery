@@ -1,7 +1,7 @@
 $(document).ready(function () {
     const toastLive = document.getElementById('liveToast');
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLive);
-
+    const edicaoModal = new bootstrap.Modal($('#modalEdicao'));
     const tbody = $('#tbodyRegistros');
 
     function criaTabela(data) {
@@ -58,25 +58,60 @@ $(document).ready(function () {
         let email = usuario.find('.email').text();
         let idade = usuario.find('.idade').text();
 
-        $.ajax({
-            type: "POST",
-            url: 'server/api.php/editar/' + id,
-            data: {
-                nome: nome,
-                email: email,
-                idade: idade
-            },
-            dataType: "json",
-            success: function (data) {
-                $('#liveToastBody').text(data.mensagem);
-                toastBootstrap.show();
-                carregarUsuarios();
-            },
-            error: function (xhr, status, error) {
-                console.log("Error: " + error);
-                alert("Error: " + error);
-            }
-        });
+        $('#idFormEdicao').val(id);
+        $('#nomeFormEdicao').val(nome);
+        $('#emailFormEdicao').val(email);
+        $('#idadeFormEdicao').val(idade);
+
+        edicaoModal.show();
+
+    });
+
+    $(document).on('click', '#btnAtualizar', function (e) {
+        e.preventDefault();
+        let id = $('#idFormEdicao').val();
+        let nomeNovo = $('#nomeFormEdicao').val();
+        let emailNovo = $('#emailFormEdicao').val();
+        let idadeNovo = $('#idadeFormEdicao').val();
+
+        //VALIDAÇÃO
+        let invalidos = false
+        $('#formEdicao').addClass('was-validated');
+        if (nomeNovo.trim() === "" || nomeNovo.length < 3) {
+            invalidos = true;
+        }
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailNovo) === "" || emailNovo.length < 3) {
+            invalidos = true;
+        }
+        if (idadeNovo.trim() === ""|| idadeNovo < 1) {
+            invalidos = true;
+        }
+
+        if (!invalidos) {
+            $.ajax({
+                type: "POST",
+                url: 'server/api.php/editar/' + id,
+                data: {
+                    nome: nomeNovo,
+                    email: emailNovo,
+                    idade: idadeNovo
+                },
+                dataType: "json",
+                success: function (data) {
+                    $('#liveToastBody').text(data.mensagem);
+                    toastBootstrap.show();
+                    carregarUsuarios();
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                    alert("Error: " + error);
+                }
+            });
+            $('#formEdicao').removeClass('was-validated');
+            edicaoModal.hide();
+        }
+        
     });
 
     function carregarUsuarios() {

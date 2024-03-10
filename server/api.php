@@ -34,27 +34,34 @@ try {
             if ($stmt->rowCount() > 0) {
                 echo json_encode(array('mensagem' => 'Usuário excluído com sucesso'));
             } else {
-                echo json_encode(array('mensagem' => 'Erro ao excluir o usuário:'. $id));
+                echo json_encode(array('mensagem' => 'Erro ao excluir o usuário:' . $id));
             }
 
             break;
 
         case 'editar':
             $id = $requisicao[1];
-            $stmt = $conn->prepare("UPDATE usuarios SET nome = :nome, email = :email, idade = :idade WHERE id = :id");
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
-            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            $stmt->bindParam(':idade', $idade, PDO::PARAM_INT);
+            if ($_POST) {
+                $nome = $_POST['nome'];
+                $email = $_POST['email'];
+                $idade = $_POST['idade'];
 
-            $stmt->execute();
+                $stmt = $conn->prepare("UPDATE usuarios SET nome = :nome, email = :email, idade = :idade WHERE id = :id");
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+                $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->bindParam(':idade', $idade, PDO::PARAM_INT);
 
-            if ($stmt->rowCount() > 0) {
-                echo json_encode(array('mensagem' => 'Usuário editado com sucesso'));
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    echo json_encode(array('mensagem' => 'Usuário editado com sucesso'));
+                } else {
+                    echo json_encode(array('mensagem' => 'Erro ao editar o usuário'));
+                }
             } else {
                 echo json_encode(array('mensagem' => 'Erro ao editar o usuário'));
             }
-
             break;
 
         default:

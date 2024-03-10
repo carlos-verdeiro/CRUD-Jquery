@@ -62,7 +62,8 @@
             </tbody>
         </table>
     </main>
-    <div class="toast align-items-center position-absolute bottom-0 end-0 m-5" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast">
+    <div class="toast align-items-center position-absolute bottom-0 end-0 m-5" role="alert" aria-live="assertive"
+        aria-atomic="true" id="liveToast">
         <div class="d-flex">
             <div class="toast-body" id="liveToastBody">
                 Mensagem
@@ -101,7 +102,43 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
                 <button type="reset" class="btn btn-warning">Limpar Campos</button>
-                <button type="submit" class="btn btn-success">Cadastrar</button>
+                <button type="submit" class="btn btn-success" id="btnCadastrar">Cadastrar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--MODAL Edição-->
+<div class="modal fade" id="modalEdicao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEdicao">
+                    <div class="mb-3">
+                        <label for="nomeFormEdicao" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nomeFormEdicao" placeholder="Digite o nome"
+                            minlength="3" maxlength="100" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailFormEdicao" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="emailFormEdicao" placeholder="Digite o email"
+                            minlength="1" maxlength="100" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="idadeFormEdicao" class="form-label">Idade:</label>
+                        <input type="number" class="form-control" id="idadeFormEdicao" placeholder="Digite a idade"
+                            min="1" maxlength="11" required>
+                    </div>
+                    <input type="hidden" id="idFormEdicao">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-success" id="btnAtualizar">Atualizar</button>
             </div>
             </form>
         </div>
