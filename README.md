@@ -2,6 +2,9 @@
 
 Este é um simples projeto de CRUD (Create, Read, Update, Delete) utilizando jQuery, Bootstrap e PHP. Ele demonstra como criar, visualizar, atualizar e excluir registros de uma base de dados utilizando AJAX para comunicação assíncrona com o servidor.
 
+![image](https://github.com/carlos-verdeiro/CRUD-Jquery/assets/157181030/579779da-7db4-4577-abcd-2e428cc1831c)
+
+
 ## Requisitos
 
 - XAMPP (ou outro servidor web compatível com PHP)
